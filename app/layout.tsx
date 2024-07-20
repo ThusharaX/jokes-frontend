@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={poppins.className}>
         {/* TODO: Add a header */}
-        <div>{children}</div>
+        <div className="container mx-auto">{children}</div>
         {/* TODO: Add a footer */}
       </body>
     </html>
