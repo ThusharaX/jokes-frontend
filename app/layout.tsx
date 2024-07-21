@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={poppins.className}>
+      <body className={`${poppins.className} bg-yellow-50 text-gray-900`}>
         <ReactQueryClientProvider>
           <Toaster />
           {/* TODO: Add a header */}
