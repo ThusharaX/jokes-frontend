@@ -49,12 +49,12 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center pt-5">
       <Link href="/submitted-jokes">
-        <Button variant={"default"} className="absolute top-5 right-5">
+        <Button variant={"default"} className="absolute right-5 top-5">
           Moderate
         </Button>
       </Link>
 
-      <h1 className="text-center text-5xl font-bold text-gradient bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text">
+      <h1 className="text-gradient bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-center text-5xl font-bold text-transparent">
         Welcome to JokeHub!
       </h1>
 

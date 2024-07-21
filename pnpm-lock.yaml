@@ -41,6 +41,9 @@ dependencies:
   cookies-next:
     specifier: ^4.2.1
     version: 4.2.1
+  husky:
+    specifier: ^9.1.1
+    version: 9.1.1
   lucide-react:
     specifier: ^0.411.0
     version: 0.411.0(react@18.3.1)
@@ -2194,6 +2197,12 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       function-bind: 1.1.2
+
+  /husky@9.1.1:
+    resolution: {integrity: sha512-fCqlqLXcBnXa/TJXmT93/A36tJsjdJkibQ1MuIiFyCCYUlpYpIaj2mv1w+3KR6Rzu1IC3slFTje5f6DUp2A2rg==}
+    engines: {node: '>=18'}
+    hasBin: true
+    dev: false
 
   /ignore@5.3.1:
     resolution: {integrity: sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==}

@@ -8,7 +8,7 @@ export default function NewJoke() {
   return (
     <main className="flex min-h-screen flex-col justify-center pt-5">
       <Link href="/">
-        <Button variant={"secondary"} className="absolute top-5 left-5">
+        <Button variant={"secondary"} className="absolute left-5 top-5">
           Back to Home
         </Button>
       </Link>
