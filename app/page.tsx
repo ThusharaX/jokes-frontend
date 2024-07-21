@@ -13,8 +13,18 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useJokeTypeData } from "@/hooks/use-joke-type-data";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 //
 export default function Home() {
+  const { data: jokeTypes, isLoading: jokeTypesLoading } = useJokeTypeData();
+  //
   // ! Temporary data for testing
   const data = {
     setup: "Why do programmers prefer dark mode?",
@@ -24,6 +34,7 @@ export default function Home() {
   };
   //
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedJokeType, setSelectedJokeType] = useState("");
   //
   const handleRequestJoke = async () => {
     setIsLoading(true);
@@ -36,9 +47,12 @@ export default function Home() {
     setIsLoading(false);
   };
   //
+  const handleSelectJokeType = (type: string) => {
+    setSelectedJokeType(type);
+  };
+  //
   return (
     <main className="flex min-h-screen flex-col items-center justify-center pt-5">
-      {/* Title - make it animated */}
       <h1 className="text-center text-5xl font-bold text-gray-800">
         Welcome to JokeHub!
       </h1>
@@ -71,11 +85,34 @@ export default function Home() {
       </Card>
 
       <div className="mt-5 flex justify-center gap-5">
+        <div className="mt-5">
+          {/* Select joke type */}
+          {jokeTypesLoading ? (
+            <Skeleton className="h-10 w-40" />
+          ) : (
+            <Select
+              defaultValue={selectedJokeType}
+              onValueChange={handleSelectJokeType}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select joke type" />
+              </SelectTrigger>
+              <SelectContent>
+                {jokeTypes?.map((type: any) => (
+                  <SelectItem key={type.id} value={type.id}>
+                    {type.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+        </div>
+
         {/* Request random joke button */}
         <Button
           className="mt-5"
           onClick={handleRequestJoke}
-          disabled={isLoading}
+          disabled={isLoading || jokeTypesLoading || !selectedJokeType}
         >
           Request a random joke
         </Button>
