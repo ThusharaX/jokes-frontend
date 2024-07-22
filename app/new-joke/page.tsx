@@ -1,14 +1,18 @@
-// Form to submit a new joke
+"use client";
+import InsertJokeForm from "@/app/_components/new-joke/InsertJokeForm";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+//
 export default function NewJoke() {
+  //
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-4xl font-bold">New Joke</h1>
-
-      {/* Form to submit a new joke */}
-
-      {/* Select joke type - get latest joke type from "Submit Jokes" microservice */}
-
-      {/* Submit joke button */}
+    <main className="flex min-h-screen flex-col justify-center pt-5">
+      <Link href="/">
+        <Button variant={"secondary"} className="absolute left-5 top-5">
+          Back to Home
+        </Button>
+      </Link>
+      <InsertJokeForm />
     </main>
   );
 }
