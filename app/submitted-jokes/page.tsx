@@ -89,7 +89,7 @@ export default function SubmittedJokes() {
         author: string;
       }) =>
         axiosInstance.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/moderate/jokes/approve/${_id}`,
+          `${process.env.NEXT_PUBLIC_MODERATE_SERVICE}/jokes/approve/${_id}`,
           {
             setup,
             punchline,
@@ -110,7 +110,7 @@ export default function SubmittedJokes() {
     useMutation({
       mutationFn: ({ _id }: { _id: number }) =>
         axiosInstance.delete(
-          `${process.env.NEXT_PUBLIC_API_URL}/moderate/jokes/reject/${_id}`,
+          `${process.env.NEXT_PUBLIC_MODERATE_SERVICE}/jokes/reject/${_id}`,
         ),
       onSuccess: () => {
         toast.success("Joke Rejected Successfully");
@@ -265,7 +265,7 @@ const EditDialog = ({ joke, refetch }: { joke: Joke; refetch: any }) => {
       author: string;
     }) =>
       axiosInstance.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/moderate/jokes/submitted/${joke._id}`,
+        `${process.env.NEXT_PUBLIC_MODERATE_SERVICE}/jokes/submitted/${joke._id}`,
         {
           setup,
           punchline,

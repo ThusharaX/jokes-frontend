@@ -44,7 +44,7 @@ export default function InsertJokeForm() {
       type: string;
       author: string;
     }) =>
-      axios.post(`${process.env.NEXT_PUBLIC_API_URL}/submit/jokes`, {
+      axios.post(`${process.env.NEXT_PUBLIC_SUBMIT_SERVICE}/jokes`, {
         setup,
         punchline,
         type,

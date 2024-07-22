@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 //
-const baseURL = process.env.NEXT_PUBLIC_API_URL;
+const baseURL = process.env.NEXT_PUBLIC_SUBMIT_SERVICE;
 //
 const fetchJokeTypes = async () => {
-  const { data } = await axios.get(`${baseURL}/submit/joke-types`);
+  const { data } = await axios.get(`${baseURL}/joke-types`);
   return data;
 };
 //

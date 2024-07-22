@@ -32,7 +32,7 @@ export default function Login() {
   //
   const { mutate, isPending } = useMutation({
     mutationFn: ({ email, password }: { email: string; password: string }) =>
-      axios.post(`${process.env.NEXT_PUBLIC_API_URL}/moderate/auth/login`, {
+      axios.post(`${process.env.NEXT_PUBLIC_MODERATE_SERVICE}/auth/login`, {
         email,
         password,
       }),
