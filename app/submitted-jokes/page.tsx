@@ -152,7 +152,9 @@ export default function SubmittedJokes() {
         Logout
       </Button>
 
-      <h1 className="mt-5 text-center text-4xl font-bold">Submitted Jokes</h1>
+      <h1 className="mt-16 text-center text-4xl font-bold md:mt-5">
+        Submitted Jokes
+      </h1>
 
       <div className="mb-10 mt-10 w-full rounded-lg border border-gray-300 bg-white p-4 shadow-md">
         <Table>
@@ -173,10 +175,15 @@ export default function SubmittedJokes() {
                   <TableCell>{item.punchline}</TableCell>
                   <TableCell>{item.author}</TableCell>
                   <TableCell>{item.type}</TableCell>
-                  <TableCell className="space-x-2">
-                    <ApproveDialog joke={item} onApprove={handleApproveJoke} />
-                    <RejectDialog joke={item} onReject={handleRejectJoke} />
-                    <EditDialog joke={item} refetch={refetchSubmittedJokes} />
+                  <TableCell>
+                    <div className="flex w-full justify-center space-x-2">
+                      <ApproveDialog
+                        joke={item}
+                        onApprove={handleApproveJoke}
+                      />
+                      <RejectDialog joke={item} onReject={handleRejectJoke} />
+                      <EditDialog joke={item} refetch={refetchSubmittedJokes} />
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

@@ -63,7 +63,7 @@ export default function Login() {
         </Button>
       </Link>
 
-      <Card className="w-1/2">
+      <Card className="w-full shadow-lg md:w-1/2">
         <CardHeader>
           <h1 className="text-center text-4xl font-bold">Login</h1>
         </CardHeader>

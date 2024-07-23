@@ -59,7 +59,7 @@ export default function Home() {
       </h1>
 
       {moderatedJoke ? (
-        <Card className="mx-auto mt-10 w-1/2 shadow-lg">
+        <Card className="mt-10 w-full shadow-lg lg:w-1/2">
           <CardHeader>
             <CardTitle className="font-bold">
               {moderatedJokesLoading || isFetchingJoke ? (
@@ -96,7 +96,7 @@ export default function Home() {
           </CardFooter>
         </Card>
       ) : (
-        <Card className="mx-auto mt-10 w-1/2 shadow-lg">
+        <Card className="mt-10 w-full shadow-lg lg:w-1/2">
           <CardHeader>
             <CardTitle className="text-center font-bold">
               Sorry, ☹️ no joke available!
@@ -110,42 +110,46 @@ export default function Home() {
         </Card>
       )}
 
-      <div className="mt-5 flex justify-center gap-5">
-        <div className="mt-5">
-          {jokeTypesLoading ? (
-            <Skeleton className="h-10 w-40" />
-          ) : (
-            <Select
-              defaultValue={jokeType}
-              onValueChange={handleSelectJokeType}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select joke type" />
-              </SelectTrigger>
-              <SelectContent>
-                {jokeTypes?.map((type: any) => (
-                  <SelectItem key={type.id} value={type.name}>
-                    {type.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
+      <div className="flex flex-col space-x-5 sm:flex-row">
+        <div className="flex justify-center gap-5">
+          <div className="mt-5">
+            {jokeTypesLoading ? (
+              <Skeleton className="h-10 w-40" />
+            ) : (
+              <Select
+                defaultValue={jokeType}
+                onValueChange={handleSelectJokeType}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select joke type" />
+                </SelectTrigger>
+                <SelectContent>
+                  {jokeTypes?.map((type: any) => (
+                    <SelectItem key={type.id} value={type.name}>
+                      {type.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          </div>
+
+          <Button
+            className="mt-5"
+            onClick={handleRequestJoke}
+            disabled={moderatedJokesLoading || jokeTypesLoading}
+          >
+            Request a random joke
+          </Button>
         </div>
 
-        <Button
-          className="mt-5"
-          onClick={handleRequestJoke}
-          disabled={moderatedJokesLoading || jokeTypesLoading}
-        >
-          Request a random joke
-        </Button>
-
-        <Link href="/new-joke">
-          <Button variant={"secondary"} className="mt-5">
-            Submit a new joke
-          </Button>
-        </Link>
+        <div className="flex flex-col items-center justify-center">
+          <Link href="/new-joke">
+            <Button variant={"secondary"} className="mt-5">
+              Submit a new joke
+            </Button>
+          </Link>
+        </div>
       </div>
     </main>
   );

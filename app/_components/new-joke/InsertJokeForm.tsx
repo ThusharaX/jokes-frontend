@@ -75,7 +75,7 @@ export default function InsertJokeForm() {
   //
   return (
     <div className="flex justify-center">
-      <Card className="w-1/2">
+      <Card className="w-full lg:w-1/2">
         <CardHeader>
           <h1 className="text-4xl font-bold">Submit a new joke 😋</h1>
         </CardHeader>
