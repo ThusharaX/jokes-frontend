@@ -55,8 +55,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { deleteCookie } from "cookies-next";
 import axiosInstance from "@/lib/axiosInstance";
+import { useRouter } from "next/navigation";
+import withAuth from "@/components/withAuth";
+import { useAuthStore } from "@/store/useAuthStore";
 //
 interface Joke {
   _id: number;
@@ -66,7 +68,13 @@ interface Joke {
   author: string;
 }
 //
-export default function SubmittedJokes() {
+function SubmittedJokes() {
+  const router = useRouter();
+  //
+  const { logout } = useAuthStore((state) => ({
+    logout: state.logout,
+  }));
+  //
   const {
     data: submittedJokes,
     isLoading: isSubmittedJokesLoading,
@@ -130,10 +138,11 @@ export default function SubmittedJokes() {
   };
   //
   const handleLogout = () => {
-    // remove token from cookies
-    deleteCookie("currentUser");
-    // redirect to login page
-    window.location.href = "/";
+    axiosInstance.post(
+      `${process.env.NEXT_PUBLIC_MODERATE_SERVICE}/auth/logout`,
+    );
+    logout();
+    router.push("/");
   };
   //
   return (
@@ -408,3 +417,5 @@ const EditDialog = ({ joke, refetch }: { joke: Joke; refetch: any }) => {
     </Dialog>
   );
 };
+
+export default withAuth(SubmittedJokes);

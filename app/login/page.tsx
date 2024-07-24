@@ -1,10 +1,8 @@
 "use client";
 
-import { setCookie } from "cookies-next";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -20,8 +18,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useAuthStore } from "@/store/useAuthStore";
+import { useRouter } from "next/navigation";
+import axiosInstance from "@/lib/axiosInstance";
 //
 export default function Login() {
+  const router = useRouter();
+  //
+  const { login } = useAuthStore((state) => ({
+    login: state.login,
+  }));
+  //
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -32,19 +39,18 @@ export default function Login() {
   //
   const { mutate, isPending } = useMutation({
     mutationFn: ({ email, password }: { email: string; password: string }) =>
-      axios.post(`${process.env.NEXT_PUBLIC_MODERATE_SERVICE}/auth/login`, {
-        email,
-        password,
-      }),
+      axiosInstance.post(
+        `${process.env.NEXT_PUBLIC_MODERATE_SERVICE}/auth/login`,
+        {
+          email,
+          password,
+        },
+      ),
     onSuccess: (res) => {
       toast.success("Login Successful");
       form.reset();
-
-      setCookie("currentUser", res.data.token, {
-        maxAge: 60 * 60,
-      });
-
-      window.location.href = "/";
+      login();
+      router.push("/submitted-jokes");
     },
     onError: (error: any) => {
       toast.error("Login Failed");
