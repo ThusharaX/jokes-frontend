@@ -14,7 +14,7 @@ export default function withAuth(Component: any) {
       if (!isAuthenticated) {
         redirect("/login");
       }
-    }, []);
+    }, [isAuthenticated]);
 
     if (!isAuthenticated) {
       return null;
