@@ -55,8 +55,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { deleteCookie } from "cookies-next";
 import axiosInstance from "@/lib/axiosInstance";
+import { useRouter } from "next/navigation";
+import withAuth from "@/components/withAuth";
+import { useAuthStore } from "@/store/useAuthStore";
 //
 interface Joke {
   _id: number;
@@ -66,7 +68,13 @@ interface Joke {
   author: string;
 }
 //
-export default function SubmittedJokes() {
+function SubmittedJokes() {
+  const router = useRouter();
+  //
+  const { logout } = useAuthStore((state) => ({
+    logout: state.logout,
+  }));
+  //
   const {
     data: submittedJokes,
     isLoading: isSubmittedJokesLoading,
@@ -130,10 +138,11 @@ export default function SubmittedJokes() {
   };
   //
   const handleLogout = () => {
-    // remove token from cookies
-    deleteCookie("currentUser");
-    // redirect to login page
-    window.location.href = "/";
+    axiosInstance.post(
+      `${process.env.NEXT_PUBLIC_MODERATE_SERVICE}/auth/logout`,
+    );
+    logout();
+    router.push("/");
   };
   //
   return (
@@ -152,7 +161,9 @@ export default function SubmittedJokes() {
         Logout
       </Button>
 
-      <h1 className="mt-5 text-center text-4xl font-bold">Submitted Jokes</h1>
+      <h1 className="mt-16 text-center text-4xl font-bold md:mt-5">
+        Submitted Jokes
+      </h1>
 
       <div className="mb-10 mt-10 w-full rounded-lg border border-gray-300 bg-white p-4 shadow-md">
         <Table>
@@ -173,10 +184,15 @@ export default function SubmittedJokes() {
                   <TableCell>{item.punchline}</TableCell>
                   <TableCell>{item.author}</TableCell>
                   <TableCell>{item.type}</TableCell>
-                  <TableCell className="space-x-2">
-                    <ApproveDialog joke={item} onApprove={handleApproveJoke} />
-                    <RejectDialog joke={item} onReject={handleRejectJoke} />
-                    <EditDialog joke={item} refetch={refetchSubmittedJokes} />
+                  <TableCell>
+                    <div className="flex w-full justify-center space-x-2">
+                      <ApproveDialog
+                        joke={item}
+                        onApprove={handleApproveJoke}
+                      />
+                      <RejectDialog joke={item} onReject={handleRejectJoke} />
+                      <EditDialog joke={item} refetch={refetchSubmittedJokes} />
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
@@ -401,3 +417,5 @@ const EditDialog = ({ joke, refetch }: { joke: Joke; refetch: any }) => {
     </Dialog>
   );
 };
+
+export default withAuth(SubmittedJokes);

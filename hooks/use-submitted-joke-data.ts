@@ -1,6 +1,5 @@
 import axiosInstance from "@/lib/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 //
 const baseURL = process.env.NEXT_PUBLIC_MODERATE_SERVICE;
 //
